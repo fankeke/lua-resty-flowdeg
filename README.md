@@ -1,18 +1,22 @@
 flowdegrade for ngx_lua or OpenResty
 ====================================
 
-## Degrade data-flow in nginx on the fly
+## degrade your flow in Ngx_lua or OpenResty on the fly
 
 ## Brife Intro 
 
 This repos is used to DENY or PASS request according to given percent.
-For example, If request's percent has been set to 90,then 90% of this request will be deny by Nginx 
+For example, If request's percent has been set to 90,then 90% of this request will be deny by Nginx.
+
+
 eg:
+```
 server_name/location 		precent
 ---------------------		-------	
 servername1/location1		90
 servername2/location2		80
 servername3/location3/loc1	100
+```
 
 According to above chart, request `servername1/location1` will be droped 90% of it's traffic,and all request prefix with `servername1/location1/*` will has the same effect. 
 
@@ -25,12 +29,8 @@ According to above chart, request `servername1/location1` will be droped 90% of 
 
   proxy:  pull degrade policy from redis to nginx worker 
 
-  Note:admin part and proxy part are deploied on separate node in production env
 
-
-
-
-##How to depoly
+## depoly
 
 for proxy node
 * nginx.conf 
@@ -56,8 +56,7 @@ http {
  redis ip should be changed accordingly in file    `/path/to/flowdeg/lib/config.lua`
 
 
-
-3 How to manager `request` and it's `percent`
+## API for admin
 
  a  set degrade policy
 
@@ -68,7 +67,4 @@ http {
 
     curl "your.adim.com/deg_admin?action=del" -d '{"host":"server1","uri":"test1"}'
 
- c  get policy
- 	--TODO 
-    curl "flow.degrade.admin/deg_admin?action=policy_get" -d '{"deg_servername":"xxx_servername","deg_location":"xxx_location"}'
 
