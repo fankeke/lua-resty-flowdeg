@@ -36,8 +36,8 @@ for proxy node
 * nginx.conf 
 
 ```
-init_worker_by_lua_file "/path/to/flowdeg/init_worker/init_worker.lua"  
-access_by_lua_file     "/path/to/flowdeg/access_lua/online_access.lua";
+init_worker_by_lua_file "/path/to/flowdeg/src/init_worker.lua"  
+access_by_lua_file     "/path/to/flowdeg/src/access.lua";
 ```
 
 for admin node
@@ -58,13 +58,16 @@ http {
 
 ## API for admin
 
- a  set degrade policy
+a.set degrade policy
+```
+curl "your.admin.com/deg_admin?action=set" -d '{"host":"server1","uri":"/test1","percent":"80"}' 
+```
 
-    curl "your.admin.com/deg_admin?action=set" -d '{"host":"server1","uri":"/test1","percent":"80"}' 
 
+b.del policy
+```
+curl "your.adim.com/deg_admin?action=del" -d '{"host":"server1","uri":"test1"}'
+```
 
- b  del policy
-
-    curl "your.adim.com/deg_admin?action=del" -d '{"host":"server1","uri":"test1"}'
 
 
